@@ -1,0 +1,239 @@
+:source-highlighter: coderay
+:icons: font
+:experimental:
+:!sectnums:
+:imagesdir: ./images/
+:codedir: ./code/
+:logo: IT.PROG2 -
+ifdef::backend-html5[]
+:logo: image:PROG2-300x300.png[IT.PROG2,100,100,role=right,fit=none,position=top right]
+endif::[]
+ifdef::backend-pdf[]
+:logo:
+endif::[]
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+= {logo} Lösungen zu den Übungsaufgaben Functional Programming
+
+:sectnums:
+:sectnumlevels: 1
+// Beginn des Aufgabenblocks
+
+== Functional Interfaces [TU]
+
+[loweralpha]
+. Welche Interfaces aus dem Package `java.util.function` können Sie alles nutzen, um
+- die mathematische Funktion f(x) = x ^ 2 - 3 für Zahlen des Typs `long` abzubilden?
+[numbered]
+.. `LongUnaryOperator`
+.. `LongFunction<R>` als `LongFunction<Long>`
+.. `ToLongFunction<T>` als `ToLongFunction<Long>`
+.. `UnaryOperator<T>` als `UnaryOperator<Long>`
+.. `Function<T,R>` als `Function<Long,Long>`
+
+- um den Zinsfaktor (double) für n (int) Jahre bei einem Zinssatz von p Prozent (float) zu berechnen mit der Formel
+zf = (1 + p / 100)^n ?
+[numbered]
+.. `ToDoubleBiFunction<T,U>` als `ToDoubleBiFunction<Integer,Float>`
+.. `BiFunction<T,U,R>` als `BiFunction<Integer,Float,Double>`
+
+- ein Objekt vom Typ `Person` (ohne Parameter) zu generieren?
+[numbered]
+.. `Supplier<T>` als `Supplier<Person>`
+
+. Welche Eigenschaft muss eine Funktion haben, damit Sie ein eigenes Interface schreiben müssen,
+also keines der in `java.util.function` vorhandenen Interfaces  verwenden können?
+[numbered]
+.. Sie muss mehr als zwei Parameter haben
+
+. Welche der Aussagen stimmen für ein funktionales Interface?
+** [x] Es ist ein Java-Interface (Schlüsselwort `interface` im Code)
+** [x] Es hat **genau eine** abstrakte Methode
+** [ ] Das Interface **muss** mit `@FunctionalInterface` markiert sein
+** [ ] Es hat **keine** default-Methoden (Schlüsselwort `default`)
+. Welche Aussagen stimmen?
+** [x] Zu **jedem** funktionalen Interface können Lambda-Ausdrücke (_lambda expressions_) geschrieben werden
+** [ ] Ein Lambda-Ausdruck kann **ohne** passendes funktionales Interface erstellt werden
+** [ ] Eine Variable vom Typ `Optional` kann nie `null` sein.
+
+== Übungen auf der Stepik-Plattform [PU]
+
+=== Übungen zu Functional Interface und Lambda Expression
+[loweralpha]
+. Identify the correct lambdas and method references
++
+Korrekt sind:
+
+*  `x -> { }`
+* `() -> 3`
+
+. Writing simple lambda expressions
++
+[source]
+----
+(x, y) -> (x > y?x:y);
+----
+
+. Too many arguments
++
+`String.join()` dürfte effizienter sein als das Zusammenfügen von Strings mit `+`.
++
+[source]
+----
+(a, b, c, d, e, f, g) -> String.join("", a, b, c, d, e, f, g).toUpperCase();
+----
+
+. Writing closures
++
+[source]
+----
+x -> a*x*x + b*x+c;
+----
+
+. Replacing anonymous classes with lambda expressions
+Alles korrekt, ausser `Iterator<Integer> iterator = new Iterator<Integer>() ...`
+
+. Matching the functional interfaces
++
+[%header]
+|===
+|function | lambda expression
+|IntSupplier | `() \-> 3`
+|Consumer<String> | `System.out::println`
+|BiPredicate<Integer,Integer>|`(x,y) \-> x % y == 0`
+|DoubleUnaryOperator|`Math::sin`
+|Function<Double,String>|`(x) \-> String.valueOf(x*x)`
+|===
++
+
+. Your own functional interface
++
+[source, Java]
+----
+class Solution {
+    @FunctionalInterface
+    public interface TernaryIntPredicate {
+        boolean test(int a, int b, int c);
+    }
+    public static final TernaryIntPredicate allValuesAreDifferentPredicate =
+        (x, y, z) -> (x != y && y != z && z != x);
+}
+----
+
+=== Übungen mit Streams
+[loweralpha, start=8]
+. Calculating production of all numbers in the range
++
+[source]
+----
+(l,r) -> LongStream.rangeClosed(l,r).reduce(1, (x,y) -> x*y);
+----
+
+. Getting distinct strings
++
+[source]
+----
+list -> list.stream().distinct().collect(Collectors.toList());
+----
+
+. Composing predicates
++
+[source, Java]
+----
+class Solution {
+    public static IntPredicate disjunctAll(List<IntPredicate> predicates) {
+        return predicates.stream().reduce(x -> false, (a, b) -> a.or(b));
+    }
+}
+----
+Sie können auch den zweiten Parameter in Reduce durch `IntPredicate::or` ersetzen.
++
+Oder mit meistens weniger Rechenaufwand:
++
+[source, Java]
+----
+class Solution {
+    public static IntPredicate disjunctAllAnyMatch(List<IntPredicate> predicates) {
+        return i -> predicates.stream().anyMatch(p -> p.test(i));
+    }
+}
+----
+. Lösen Sie die folgenden Aufgaben mit Streams:
+** Numbers filtering
++
+[source, Java]
+----
+class Solution {
+    public static IntStream createFilteringStream(IntStream evenStream, IntStream oddStream) {
+        IntStream res = IntStream.concat(evenStream, oddStream);
+        return res.filter(n -> n % 15 == 0).sorted().skip(2);
+    }
+}
+----
+
+** Calculating a factorial
++
+[source, Java]
+----
+class Solution {
+  public static long factorial(long n) {
+    return LongStream.rangeClosed(1L,n).reduce(1L, (a,b) -> a*b);
+  }
+}
+----
+
+** The sum of odd numbers
++
+[source]
+----
+return LongStream.rangeClosed(start, end).filter(n -> n%2 == 1).sum();
+----
+
+** Collectors in practice: the product of squares
++
+[source]
+----
+Collectors.reducing(1, (a, b) -> a * b*b);
+----
+
+** Almost like a SQL: the total sum of transactions by each account
++
+[source]
+----
+Collectors.groupingBy(
+    transaction -> transaction.getAccount().getNumber(),
+    Collectors.summingLong(Transaction::getSum));
+----
+
+
+
+== Design Pattern _Chain of responsibility_ [PU]
+
+[source, Java]
+----
+class Solution {
+    @FunctionalInterface
+    interface RequestHandler {
+        Request handle(Request request);
+        default RequestHandler wrapFirst(RequestHandler otherHandler) {
+            return request -> handle(otherHandler.handle(request));
+        }
+    }
+
+    final static RequestHandler commonRequestHandler =
+        wrapInRequestTag.wrapFirst(createDigest.wrapFirst(wrapInTransactionTag));
+}
+----
+
+
+
+== Company Payroll [PA]
+****
+Die Lösungen zu den bewerteten Pflichtaufgaben erhalten Sie nach der Abgabe und Bewertung aller Klassen.
+****

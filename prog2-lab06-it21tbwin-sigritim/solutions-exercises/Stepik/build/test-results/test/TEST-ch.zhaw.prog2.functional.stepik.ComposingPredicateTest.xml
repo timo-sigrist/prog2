@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ch.zhaw.prog2.functional.stepik.ComposingPredicateTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-06-02T21:31:56" hostname="TABLET-TRPP7MLB" time="0.05">
+  <properties/>
+  <testcase name="disjunctAllFaster()" classname="ch.zhaw.prog2.functional.stepik.ComposingPredicateTest" time="0.038"/>
+  <testcase name="disjunctAll()" classname="ch.zhaw.prog2.functional.stepik.ComposingPredicateTest" time="0.006"/>
+  <testcase name="disjunctAllNoStream()" classname="ch.zhaw.prog2.functional.stepik.ComposingPredicateTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

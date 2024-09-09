@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ch.zhaw.prog2.functional.streaming.CompanyTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-06-02T21:33:13" hostname="TABLET-TRPP7MLB" time="0.991">
+  <properties/>
+  <testcase name="testGetPayments()" classname="ch.zhaw.prog2.functional.streaming.CompanyTest" time="0.991"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

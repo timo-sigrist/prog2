@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.prog2.fxmlcalculator.MainWindowController">
+   <children>
+      <MenuBar>
+        <menus>
+            <Menu mnemonicParsing="false" text="Clear">
+              <items>
+                  <CheckMenuItem fx:id="menuItemIInitialAmount" mnemonicParsing="false" onAction="#toogleInitialAmount" text="Initial amount" />
+                  <CheckMenuItem fx:id="menuItemReturInProcent" mnemonicParsing="false" onAction="#toogleReturnInProcent" text="Return in %" />
+                  <CheckMenuItem fx:id="menuItemAnnualCost" mnemonicParsing="false" onAction="#toogleAnnualCost" text="Annual Costs" />
+                  <CheckMenuItem fx:id="menuItemNumberOfYears" mnemonicParsing="false" onAction="#toogleNumberOfYears" text="Number of years" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuItemClearValue" mnemonicParsing="false" onAction="#clearValues" text="Clear values" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuItemClearResults" mnemonicParsing="false" onAction="#clearAllValues" text="Clear results" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="?">
+              <items>
+                <MenuItem fx:id="menuItemIShowHelp" mnemonicParsing="false" onAction="#showHelp" text="Show help F1">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="ANY" />
+                     </accelerator></MenuItem>
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <VBox prefHeight="269.0" prefWidth="336.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <Label text="Calculator">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="25.0" prefWidth="336.0">
+               <children>
+                  <Label fx:id="labelInitialAmount" text="Initial amount" />
+                  <Pane prefHeight="25.0" prefWidth="33.0" />
+                  <TextField fx:id="textfieldInitialAmount" />
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="336.0">
+               <children>
+                  <Label fx:id="labelReturnRate" text="Retrun rate in %" />
+                  <Pane prefHeight="184.0" prefWidth="21.0" />
+                  <TextField fx:id="textfieldReturnRate" />
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="336.0">
+               <children>
+                  <Label fx:id="labelAnnualCost" text="Annual cost" />
+                  <Pane prefHeight="25.0" prefWidth="45.0" />
+                  <TextField fx:id="textfieldAnnualCost" />
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="336.0">
+               <children>
+                  <Label fx:id="labelNumberOfYears" text="Number of years" />
+                  <Pane prefHeight="25.0" prefWidth="19.0" />
+                  <TextField fx:id="textfieldNumberOfYears" />
+               </children>
+            </HBox>
+            <Label fx:id="labelResult" text="Result:" />
+            <TextArea fx:id="textAreaResult" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="326.0" VBox.vgrow="ALWAYS" />
+            <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <Button fx:id="buttonCalculate" mnemonicParsing="false" onAction="#calculate" text="Calculate" />
+                  <Button fx:id="buttonClose" mnemonicParsing="false" onAction="#closeWindow" text="Close" />
+                  <Button fx:id="OpenResWindow" mnemonicParsing="false" onAction="#openResultWindow" text="Resultatfenster" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="50.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

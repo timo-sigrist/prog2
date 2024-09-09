@@ -1,0 +1,309 @@
+:source-highlighter: coderay
+:icons: font
+:experimental:
+:!sectnums:
+:imagesdir: ./images/
+:codedir: ./code/
+:logo: IT.PROG2 -
+ifdef::backend-html5[]
+:logo: image:PROG2-300x300.png[IT.PROG2,100,100,role=right,fit=none,position=top right]
+endif::[]
+ifdef::backend-pdf[]
+:logo:
+endif::[]
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+// references
+:java-api-functional: https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/function/package-summary.html
+:stepik-functional-course: https://stepik.org/course/1595/syllabus[Java. Functional programming]
+:chain-refactoring: https://refactoring.guru/design-patterns/chain-of-responsibility
+:disjunction: https://en.wikipedia.org/wiki/Logical_disjunction#Truth_table
+:stepik-func-identify-lambdas: https://stepik.org/lesson/34714/step/1?unit=14153[2.2 Identify the correct lambdas and method references]
+:stepik-func-write-simple-lambdas: https://stepik.org/lesson/35020/step/1?unit=14444[2.3 Writing simple lambda expressions]
+:stepik-func-too-many-arguments: https://stepik.org/lesson/42581/step/1?tunit=20812[2.4 Too many arguments]
+:stepik-stream-calc-product: https://stepik.org/lesson/35224/step/1?unit=14582[2.5 Calculating production of all numbers in the range]
+:stepik-stream-distinct-strings: https://stepik.org/lesson/36408/step/1?unit=15452[2.6 Getting distinct strings]
+:stepik-func-closure: https://stepik.org/lesson/35833/step/1?unit=14996[2.7 Writing closures]
+:stepik-func-replace-class: https://stepik.org/lesson/34715/step/1?unit=14154[3.2 Replacing anonymous classes with lambda expressions]
+:stepik-func-match-interface: https://stepik.org/lesson/35021/step/1?unit=14446[3.3 Matching the functional interfaces]
+:stepik-func-your-own: https://stepik.org/lesson/42582/step/1?unit=20813[3.5 Your own functional interface]
+:stepik-stream-compose-function: https://stepik.org/lesson/35128/step/1?unit=14532[3.7 Composing predicates]
+:stepik-chain: https://stepik.org/lesson/46943/step/1?unit=24990[3.9 The chain of responsibility pattern in the functional style]
+:stepik-number-filter: https://stepik.org/lesson/36158/step/1?unit=15266[4.6 Numbers filtering]
+:javadoc-intstream-concat: https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/stream/IntStream.html#concat(java.util.stream.IntStream,java.util.stream.IntStream)[IntStream.concat]
+:stepik-factorial: https://stepik.org/lesson/35849/step/1?unit=15014[4.8 Calculating a factorial]
+:stepik-odd-numbers: https://stepik.org/lesson/36144/step/1?unit=15253[4.9 The sum of odd numbers]
+:stepik-collector-product: https://stepik.org/lesson/35859/step/1?unit=15021[5.3 Collectors in practice: the product of squares]
+:stepik-collector-transaction: https://stepik.org/lesson/36018/step/1?unit=15142[5.5 Almost like a SQL: the total sum of transactions by each account]
+:java-tutorial-reduction: https://docs.oracle.com/javase/tutorial/collections/streams/reduction.html[Tutorial über Reduction mit Streams]
+
+= {logo} Praktikum Functional Programming
+
+== Einleitung
+
+Ziele dieses Praktikums sind:
+
+* Sie können Lambda Expressions schreiben
+* Sie können eigene funktionale Interfaces schreiben und verwenden
+* Sie können `Optional` sinnvoll anwenden
+* Sie kennen Methoden-Referenzen und können diese einsetzen
+* Sie kennen die wichtigsten Klassen und Methoden aus `java.util.stream` und `java.util.function`
+  und können diese anwenden
+
+=== Voraussetzungen
+* Vorlesung Programmieren 2 – Functional Programming
+
+=== Tooling
+
+* Installiertes JDK 17+
+* Gradle 7.4+
+
+=== Struktur
+
+Das Praktikum enthält verschiedene Arten von Aufgaben, die wie folgt gekennzeichnet sind:
+
+[TU] – Theoretische Übung::
+Dient der Repetition bzw. Vertiefung des Stoffes aus der Vorlesung und als Vorbereitung für die nachfolgenden Übungen.
+
+[PU] – Praktische Übung::
+Übungsaufgaben zur praktischen Vertiefung von Teilaspekten des behandelten Themas.
+
+[PA] – Pflichtaufgabe::
+Übergreifende Aufgabe zum Abschluss. Das Lösen dieser Aufgaben ist Pflicht. Sie muss bis zum definierten Zeitpunkt abgegeben werden, wird bewertet und ist Teil der Vornote.
+
+=== Zeit und Bewertung
+
+Für das Praktikum stehen die Wochen gemäss den Angaben in Moodle zur Verfügung. +
+Je nach Kenntnis- und Erfahrungsstufe benötigen Sie mehr oder weniger Zeit.
+Nutzen Sie die Gelegenheit den Stoff zu vertiefen, auszuprobieren, Fragen zu stellen und Lösungen zu diskutieren.
+
+Falls Sie das Thema schon beherrschen, müssen Sie nur die Pflichtaufgaben lösen und
+bis zum angegebenen Zeitpunkt abgeben (Fast-Track).
+
+Die Pflichtaufgaben werden mit 0 bis 2 Punkten bewertet (siehe _Leistungsnachweise_ auf Moodle).
+
+[TIP]
+Auch wenn Sie das Thema schon beherrschen, prüfen Sie bitte Ihr Wissen über
+das Design Pattern _Chain of responsibility_.
+
+:sectnums:
+:sectnumlevels: 1
+// Beginn des Aufgabenblocks
+
+== Functional Interfaces [TU]
+
+[NOTE]
+Sie können Textantworten in der Datei `solutions-sheet.adoc` (eine Muster-Datei ist im Code-Verzeichnis) oder
+`solutions-sheet.md` im Root-Verzeichnis der Übung sammeln.
+
+Java bietet für viele Zwecke im {java-api-functional}[Package java.util.functional] Functional Interfaces.
+
+[loweralpha]
+. Welche Interfaces aus dem Package `java.util.function` können Sie alles nutzen, um
+- die mathematische Funktion f(x) = x ^ 2 - 3 für Zahlen des Typs `long` abzubilden?
+- um den Zinsfaktor (double) für n (int) Jahre bei einem Zinssatz von p Prozent (float) zu berechnen mit der Formel
+zf = (1 + p / 100)^n ?
+- ein Objekt vom Typ `Person` (ohne Parameter) zu generieren?
+. Welche Eigenschaft muss eine Funktion haben, damit Sie ein eigenes Interface schreiben müssen,
+also keines der in `java.util.function` vorhandenen Interfaces  verwenden können?
+. Welche der Aussagen stimmen für ein funktionales Interface?
+** [ ] Es ist ein Java-Interface (Schlüsselwort `interface` im Code)
+** [ ] Es hat **genau eine** abstrakte Methode
+** [ ] Das Interface **muss** mit `@FunctionalInterface` markiert sein
+** [ ] Es hat **keine** default-Methoden (Schlüsselwort `default`)
+. Welche Aussagen stimmen?
+** [ ] Zu **jedem** funktionalen Interface können Lambda-Ausdrücke (_lambda expressions_) geschrieben werden
+** [ ] Ein Lambda-Ausdruck kann **ohne** passendes funktionales Interface erstellt werden
+** [ ] Eine Variable vom Typ `Optional` kann nie `null` sein.
+
+== Übungen auf der Stepik-Plattform [PU]
+
+Starten Sie den Kurs {stepik-functional-course}. Dazu müssen Sie dort ein Konto anlegen.
+Die Plattform ist von der ZHAW unabhängig.
+
+[TIP]
+Sie können dort alle Aufgaben direkt im Browser lösen.
+Oft ist es aber zweckmässig, den Code in die IDE zu übernehmen und die Lösung dort zu entwickeln.
+
+Auf dieser Plattform wird Ihre Lösung online geprüft und Sie erhalten Feedback, ob Ihre Lösung alle Tests erfüllt.
+
+
+[TIP]
+Wenn Sie eine funktionierende Lösung abgegeben haben, erhalten Sie Zugriff auf Kommentare und Lösungen anderer Personen.
+Vergleichen Sie Ihre Lösung, Sie können viel von anderen Lösungen lernen.
+
+=== Übungen zu Functional Interface und Lambda Expression
+Lösen Sie die folgenden Übungen:
+
+[loweralpha]
+. {stepik-func-identify-lambdas}
+. {stepik-func-write-simple-lambdas}
+. {stepik-func-too-many-arguments}
+. {stepik-func-closure}
+. {stepik-func-replace-class}
+. {stepik-func-match-interface}
+. {stepik-func-your-own}
+
+=== Übungen mit Streams
+[loweralpha, start=8]
+. Lösen Sie {stepik-stream-calc-product}
++
+Tipp: Verwenden Sie die passend Methode `.reduce(...)`
+
+. Lösen Sie {stepik-stream-distinct-strings}
+. Lösen Sie die Übung {stepik-stream-compose-function}.
+Die Aufgabe verlangt, dass Sie ein `IntPredicate` erstellen, das alle `IntPredicate` aus übergebenen Liste `predicates` mit der {disjunction}[Oder-Funktion (or)] verknüpft.
+Eine mögliche Lösung ist
++
+[source, Java]
+----
+class Predicate {
+  public static IntPredicate disjunctAll(List<IntPredicate> predicates) {
+    IntPredicate disjunct = x -> false;
+    for(IntPredicate currentPredicate: predicates) {
+      disjunct = disjunct.or(currentPredicate);
+    }
+    return disjunct;
+  }
+}
+----
++
+Eine Anwendung könnte sein:
++
+[source, Java]
+----
+class Predicate {
+  public static void main(String[] args) {
+    IntPredicate isEven = x -> x % 2 == 0;
+    IntPredicate isDividableBy3 = x -> x % 3 == 0;
+    List<IntPredicate> predicateList = List.of(isEven, isDividableBy3);
+    IntPredicate disPredicate = disjunctAll(predicateList);
+    IntStream.range(1, 10).forEach(i ->
+      System.out.printf("%2d -> %s%n", i, disPredicate.test(i)));
+  }
+}
+----
++
+Suchen Sie jedoch eine Lösung, die mit Streams arbeitet. Sie finden Tests und ein Gerüst für die
+Aufgabe in `code/Stepik` in der Klasse `ComposingPredicate`.
+[TIP]
+Wenn Sie eine Lösung gefunden haben,
+überlegen Sie sich, wie viele Funktionen (`IntPredicate`) beim Aufruf von `.test()` ausgewertet werden.
+Lässt sich dies reduzieren?
+
+. Lösen Sie die folgenden Aufgaben mit Streams:
+** {stepik-number-filter} - beachten Sie die Methode {javadoc-intstream-concat}
+** {stepik-factorial}
+** {stepik-odd-numbers}
+** {stepik-collector-product}
++
+In den Folien der Vorlesung sind die `Stream.reduce()`-Methoden aufgeführt.
+In der Aufgabe wird aber ``Stream.collect(``_collector_``)`` verwendet und Sie müssen nur den _collector_ angeben.
+Die entsprechenden Funktionen in der Collectors-Klasse heissen `Collectors.reducing()`.
+Ihre Lösung lautet also `Collectors.reducing(...)`
+** {stepik-collector-transaction}
++
+Tipp: Auch wenn steht, dass die Form `Collectors.reducing` verwendet werden kann, ist die Methode `reducing` nicht die Lösung, sie benötigen eine andere Methode aus der Klasse `Collectors`.
+
+
+
+== Design Pattern _Chain of responsibility_ [PU]
+Lernen Sie das Pattern {chain-refactoring}[Chain of Responsibility] kennen.
+
+In der Übung {stepik-chain} setzen Sie dieses Pattern funktional um.
+[TIP]
+Das ist eine aufwändige Aufgabe, nehmen Sie sich Zeit dafür.
+
+
+== Company Payroll [PA]
+[CAUTION]
+Bei dieser Aufgabe geht es darum alles mit Streams zu lösen.
+Verwenden Sie keine for-, do-, oder while-Schleifen.
+
+Im Package `ch.zhaw.prog2.functional.streaming` finden Sie einige Klassen. Diese ermöglichen einer Firma den Angestellten die Löhne auszubezahlen.
+Zu den Klassen sind auch passende Tests für die Klassen vorhanden.
+Für die Tests werden die Objekte mit generierten Daten angereichert.
+
+[TIP]
+====
+Sie sollen nur die folgenden Klassen anpassen:
+
+* `Company`
+* `PayrollCreator`
+* `PayrollCreatorTest**Student**` (do not modify `PayrollCreatorTest`)
+* `CompanyTest**Student**` (do not modify `CompanyTest`)
+====
+
+Lösen Sie mit Hilfe von Streams und basierend auf diesem existierenden Code die folgenden Aufgaben:
+
+[loweralpha]
+. Mit `Company.allEmployees()` erhalten Sie alle Angestellten.
++
+Implementieren Sie die Methoden `Company.getDistinctFirstnamesOfEmployees()` und
+`Company.getDistinctLastnamesOfEmployees()`.
++
+Die dazugehörigen Tests sind in `CompanyTest` bereits vorhanden.
++
+[TIP]
+Die Implementation benötigt keine Hilfsvariablen.
+Sie können die Implementation mit `return getAllEmployees().stream()` starten.
+
+. Mit `Employee.isWorkingForCompany` können Sie prüfen, ob der Angestellte noch für die Firma tätig ist.
+Implementieren Sie `Company.getEmployeesWorkingForCompany()`. +
+Der dazugehörige Test ist in `CompanyTest` bereits vorhanden.
+
+. Als Nächstes sollen alle Angestellten mit dem Attribut `Employee.isFemale` ermittelt werden.
+Da dies zu ähnlichem Code wie in der vorherigen Aufgabe führt, realisieren Sie eine generischere Methode `Company.getEmployeesByPredicate(Predicate<Employee>)`.
+Die dazugehörigen Tests schreiben Sie in der Testklasse `CompanyTestStudent`.
+Als Tests schlage ich vor zu prüfen, ob die Summe der Angestellten mit dem Attribut `isFemale` und ohne dieses Attribut gleich der Summe aller Angestellten ist.
+
+. Nachdem `Company` uns Methoden für den Zugriff auf die Angestellten bietet, kümmern wir uns um die Lohnzahlungen.
+Die Klasse `Payroll` sammelt `Payment` in einer Liste.
+In der Klasse `PayrollCreator` schreiben Sie die dazu nötigen Methoden.
++
+Implementieren Sie die Methode `PayrollCreator.getPayrollForAll()`, die eine `Payroll` für alle Angestellten erstellt, für die `Employee.isWorkingForCompany` gesetzt ist.
+Verwenden Sie die Methode `Company.getPayments`.
++
+Einen passenden Test finden Sie in `PayrollCreatorTest`.
+
+. Wie hoch ist nun die Lohnsumme?
+Implementieren Sie `PayrollCreator.payrollValueCHF()`.
++
+Da verschiedene Währungen verwendet werden, müssen die `Payment` mit der Methode `CurrencyChange.getInNewCurrency` zu CHF gewandelt werden.
+
+. Nun sollen noch die Summen pro Währung ermittelt werden.
+Implementieren Sie die Methode `PayrollCreator.payrollAmountByCurrency`.
++
+Ein Ansatz dazu kann Ihnen das {java-tutorial-reduction} geben.
++
+Schreiben Sie einen Test dazu in `PayrollCreatorTestStudent`. Verwenden Sie Mocking.
+Ein Positiv-Test, der prüft, dass die Währungen bei der Summenbildung korrekt berücksichtigt werden, reicht für diese Aufgabe aus.
+
+. In der Methode `Company.getPayments(Predicate)` ist bisher nicht berücksichtigt, dass der 13. Monatslohn nicht gleichmässig über das Jahr ausbezahlt wird.
++
+[NOTE]
+Bei einer Anstellung mit einem 13. Monatslohn wird zu den 12 monatlichen Lohnzahlungen ein weiteres Monatsgehalt ausbezahlt.
+Das monatliche Gehalt ist dann 1/13 des Jahresgehalts.
+In der Regel wird der 13. Monatslohn im Dezember ausbezahlt.
++
+Der 13. Monatslohn soll nur im Dezember ausbezahlt werden.
+Zudem gibt es gelegentlich andere Anpassungen, z.B. 5% firmenweite Sondervergütung.
+Um dies flexibel definieren zu können, soll die anzuwendende Lohnberechnung in einer Funktion übergeben werden.
++
+Orientieren Sie sich an der Funktion `Company.getPayments(Predicate)` und implementieren Sie `Company.getPayments(Predicate, Function)`.
++
+Implementieren Sie auch die dazu passenden Funktionen `Company.paymentForEmployeeDecember`
+für Zahlungen mit dem 13. Monatslohn und `Company.paymentForEmployeeJanuary` für Zahlungen ohne 13. Monatslohn.
+Die dazu nötigen Deklarationen finden Sie in `Company` am Anfang der Klasse.
+
+// Ende des Aufgabenblocks
+:!sectnums:
+== Abschluss
+
+Stellen Sie sicher, dass die Tests mit `gradle test` erfolgreich laufen und pushen Sie die Lösung vor der Deadline in Ihr Abgaberepository.

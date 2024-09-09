@@ -1,0 +1,87 @@
+:source-highlighter: coderay
+:icons: font
+
+= Lösungsblatt zum Praktikum Functional Programming
+
+Diese Datei ist als Hilfsmittel für Sie gedacht.
+Sie brauchen die Datei nicht zu verwenden, wenn Sie nicht möchten.
+
+== 1. Die Functional Interfaces
+
+[loweralpha]
+. Welche Interfaces aus dem Package `java.util.function` können Sie alles nutzen, um
+- die mathematische Funktion f(x) = x ^ 2 - 3 für Zahlen des Typs `long` abzubilden?
+[numbered]
+.. Lösung 1
+.. Lösung 2
+.. Lösung 3
+.. Lösung 4
+.. Lösung 5
+
+- um den Zinsfaktor (double) für n (int) Jahre bei einem Zinssatz von p Prozent (float) zu berechnen mit der Formel
+zf = (1 + p / 100)^n ?
+[numbered]
+.. Lösung 1
+.. Lösung 2
+
+- ein Objekt vom Typ `Person` (ohne Parameter) zu generieren?
+[numbered]
+.. Lösung
+
+- Welche Eigenschaft muss eine Funktion haben, damit Sie ein eigenes Interface schreiben müssen,
+also keines der in `java.util.function` vorhandenen Interfaces  verwenden können?
+[numbered]
+.. Lösung
+
+. Welche der Aussagen stimmen für ein funktionales Interface?
+** [x] Ankreuzen mit x in [ ]
+** [ ] Es ist ein Java-Interface (Schlüsselwort `interface` im Code)
+** [ ] Es hat **genau eine** abstrakte Methode
+** [ ] Das Interface **muss** mit `@FunctionalInterface` markiert sein
+** [ ] Es hat **keine** default-Methoden (Schlüsselwort `default`)
+. Welche Aussagen stimmen?
+** [ ] Zu **jedem** funktionalen Interface können Lambda-Ausdrücke (_lambda expressions_) geschrieben werden
+** [ ] Ein Lambda-Ausdruck kann **ohne** passendes funktionales Interface erstellt werden
+** [ ] Eine Variable vom Typ `Optional` kann nie `null` sein.
+
+
+== 2. Übungen auf der Stepik-Plattform
+
+=== Übungen zu Functional Interface und Lambda Expression
+. Identify the correct lambdas and method references
+Korrekt sind
+* ...
+
+. Writing simple lambda expressions
++
+[source, Java]
+----
+ // java function
+----
+
+. Too many arguments
++
+[source, Java]
+----
+// java function
+----
+
+=== Übungen mit Streams
+
+. Composing predicates
++
+[source, Java]
+----
+// java code
+----
+
+== 3. Design Pattern _Chain of responsibility_
+
+[source, Java]
+----
+// java code
+----
+
+== 4. Company Payroll
+
+Lösung im Code-Repository.

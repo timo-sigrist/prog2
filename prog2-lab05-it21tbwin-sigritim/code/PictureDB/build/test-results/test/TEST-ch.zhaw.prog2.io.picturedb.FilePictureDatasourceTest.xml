@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2022-05-19T21:44:24" hostname="TABLET-TRPP7MLB" time="0.295">
+  <properties/>
+  <testcase name="findByPosition()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.038"/>
+  <testcase name="findByIdInexistent()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.008"/>
+  <testcase name="delete()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.054"/>
+  <testcase name="insert()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.045"/>
+  <testcase name="findAll()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.009"/>
+  <testcase name="update()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.045"/>
+  <testcase name="findById()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.008"/>
+  <testcase name="updateNull()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.011"/>
+  <testcase name="count()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.017"/>
+  <testcase name="deleteInexistent()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.016"/>
+  <testcase name="updateInexistent()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.01"/>
+  <testcase name="insertNull()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.007"/>
+  <testcase name="deleteNull()" classname="ch.zhaw.prog2.io.picturedb.FilePictureDatasourceTest" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] Deleted
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] database synced
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] Picture inserted
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] database synced
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] updated
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] database synced
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] Picture inserted
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] database synced
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] Deleted
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] database synced
+[2022-05-19 23:44:24 CEST] [SEVERE] [ch.zhaw.prog2.io.picturedb.LogConfiguration] Record with id: 0 was not found!
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] updated
+[2022-05-19 23:44:24 CEST] [INFO] [ch.zhaw.prog2.io.picturedb.LogConfiguration] database synced
+]]></system-err>
+</testsuite>

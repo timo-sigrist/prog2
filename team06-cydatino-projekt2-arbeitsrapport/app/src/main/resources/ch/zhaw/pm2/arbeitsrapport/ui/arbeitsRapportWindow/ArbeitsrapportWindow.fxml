@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="510.0" maxWidth="797.0" minHeight="250.0" minWidth="500.0" prefHeight="510.0" prefWidth="797.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.arbeitsrapport.ui.arbeitsrapportWindow.ArbeitsrapportWindowController">
+   <children>
+      <Button layoutX="753.0" layoutY="74.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onMouseClicked="#addParagraph" prefHeight="30.0" prefWidth="30.0" text="+" textAlignment="CENTER" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="14.0" layoutY="14.0" text="Arbeitsrapport" textAlignment="CENTER" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="641.0" layoutY="75.0" maxHeight="30.0" maxWidth="130.0" minHeight="30.0" minWidth="101.0" mnemonicParsing="false" onMouseClicked="#addParagraphManually" prefHeight="30.0" prefWidth="130.0" text="+ Text manuell" textAlignment="CENTER" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="682.0" layoutY="442.0" maxHeight="30.0" maxWidth="101.0" minHeight="30.0" minWidth="101.0" mnemonicParsing="false" onMouseClicked="#generateReport" prefHeight="30.0" prefWidth="101.0" text="Generieren" textAlignment="CENTER" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="573.0" layoutY="442.0" maxHeight="30.0" maxWidth="303.0" minHeight="30.0" minWidth="101.0" mnemonicParsing="false" onMouseClicked="#copyToClipboard" prefHeight="30.0" prefWidth="214.0" text="In Zwischenablage kopieren" textAlignment="CENTER" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="125.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tableView" layoutX="104.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="80.0">
+        <columns>
+          <TableColumn prefWidth="25.0" text="Id" />
+            <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="680.0" text="Paragraph" />
+            <TableColumn maxWidth="30.0" minWidth="30.0" prefWidth="30.0" resizable="false" text="Edit" />
+            <TableColumn maxWidth="30.0" minWidth="30.0" prefWidth="30.0" resizable="false" text="Del" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
